@@ -1,46 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My First Flask App</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f6f8;
-            text-align: center;
-            padding-top: 100px;
-        }
-
-        input {
-            padding: 10px;
-            font-size: 16px;
-            width: 250px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-
-        h1 {
-            margin-top: 30px;
-            color: #333;
-        }
-    </style>
+    <title>Simple Regex Matcher</title>
 </head>
 <body>
 
-    <h2>Enter Your Name</h2>
+    <h1>Regex Matcher</h1>
 
-    <form method="GET">
-        <input type="text" name="name" placeholder="Type your name here" required>
-        <button type="submit">Submit</button>
-    </form>
+    <label>Test String:</label><br>
+    <textarea id="testString" rows="5" cols="50"></textarea><br><br>
+    
+    <label>Regular Expression:</label><br>
+    <input type="text" id="regexInput" /><br><br>
 
-    {% if name %}
-        <h1>HELLO {{ name }} </h1>
-    {% endif %}
+
+    <button onclick="findMatches()">Submit</button>
+
+    <h2>Matches:</h2>
+    <div id="output"></div>
+
+    <!C:\Users\kalur\OneDrive\Desktop\regex-matcher\script.js>
+    <script src="script.js"></script>
     
 </body>
 </html>
