@@ -1,22 +1,34 @@
-from flask import Flask, request, render_template
+import streamlit as st
+import joblib
+import re
 
-app = Flask(__name__)
+# Load trained model and vectorizer
+model = joblib.load("sentiment_model.pkl")
+vectorizer = joblib.load("tfidf_vectorizer.pkl")
 
+st.set_page_config(page_title="Flipkart Sentiment Analysis")
 
-@app.route('/favicon.ico')
-def favicon():
-    return "", 204
+st.title("Flipkart Product Review Sentiment Analysis")
+st.write("Enter a product review below to predict its sentiment.")
 
-## Home route
-@app.route("/", methods=["GET"])
-def home():
-    # Get the name from URL query parameter
-    name = request.args.get("name")
-    
-    if name:
-        name = name.upper()
+# Text input
+review = st.text_area("Review Text")
 
-    return render_template("index.html", name=name)
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-zA-Z]', ' ', text)
+    return text
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# Predict button
+if st.button("Analyze Sentiment"):
+    if review.strip() == "":
+        st.warning("Please enter a review.")
+    else:
+        cleaned_review = clean_text(review)
+        vector = vectorizer.transform([cleaned_review])
+        prediction = model.predict(vector)
+
+        if prediction[0] == 1:
+            st.success("Positive Review")
+        else:
+            st.error("Negative Review")
